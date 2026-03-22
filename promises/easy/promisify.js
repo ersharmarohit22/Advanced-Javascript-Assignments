@@ -11,7 +11,12 @@
 // // 2. Reject if callback gets an error
 
 function promisify(fn) {
+    return function(...args){
+        return new Promise((resolve,reject)=>{
+        fn.call(this,...args,(err,res)=> err ? reject(err) : resolve(res))
+        })
 
+    }
 }
 
 module.exports = promisify;
